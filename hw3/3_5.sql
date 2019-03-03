@@ -13,7 +13,7 @@ SELECT @@SERVERNAME;
 
 exec master..xp_cmdshell 'bcp "[WideWorldImporters].Sales.InvoiceLines" out "C:\tmp\InvoiceLines.txt" -T -w -t"@eu&$1&" -S localhost';
 
-select *
+select top 1 *
 into WideWorldImporters.Sales.InvoiceLines_BulkDemo
 from WideWorldImporters.Sales.InvoiceLines;
 
