@@ -25,14 +25,14 @@ from dbo.MyEmployees;
 
 with DirectReports(ManagerID, EmployeeID, FullName, Indent, Title, EmployeeLevel) as
 (
-	select ManagerID, EmployeeID, concat(FirstName, ' ', LastName) as FullName, '|' as Indent, Title, 0 as EmployeeLevel
+	select ManagerID, EmployeeID, convert(varchar(255), concat(FirstName, ' ', LastName)) as FullName, convert(varchar(255), '') as Indent, Title, 0 as EmployeeLevel
 	from dbo.MyEmployees
 	where ManagerID is NULL
 	union all
-	select e.ManagerID, e.EmployeeID, concat(FirstName, '|', LastName) as FullName, '|' as Indent, e.Title, d.EmployeeLevel + 1
+	select e.ManagerID, e.EmployeeID, convert(varchar(255), concat('|', d.Indent, FirstName, ' ', LastName)) as FullName, convert(varchar(255), concat('|', d.Indent)) as Indent, e.Title, d.EmployeeLevel + 1
 	from dbo.MyEmployees as e
 		inner join DirectReports as d
 		on e.ManagerID = d.EmployeeID
 )
-select ManagerID, EmployeeID, FullName, Title, EmployeeLevel
+select EmployeeID, FullName, Title, EmployeeLevel
 from DirectReports;
