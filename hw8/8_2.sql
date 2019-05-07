@@ -1,5 +1,18 @@
 use WideWorldImporters;
 
-SELECT distinct concat(c.DeliveryAddressLine1, c.DeliveryAddressLine2) as Address
-	FROM Sales.Customers AS c
-	where c.CustomerName like '%Tailspin Toys%'
+select CustomerName,
+	   DeliveryAddressLine1 as addr
+from Sales.Customers
+union
+select CustomerName,
+	   DeliveryAddressLine2 as addr
+from Sales.Customers
+
+SELECT CustomerName, addr
+FROM (
+	SELECT DeliveryAddressLine1, 
+		   DeliveryAddressLine2, 
+		   CustomerName
+	FROM Sales.Customers
+) T UNPIVOT(addr FOR dich IN(DeliveryAddressLine1,
+                             DeliveryAddressLine2)) AS upvt;

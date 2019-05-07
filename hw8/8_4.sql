@@ -1,5 +1,4 @@
 use WideWorldImporters;
-
 SELECT c.CustomerID
 	   ,c.CustomerName
 	   ,inv.StockItemID
