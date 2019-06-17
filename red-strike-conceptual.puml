@@ -1,0 +1,92 @@
+@startuml
+
+title Red strike
+
+class Worker{
+    FullName
+    Birthdate
+    EmailAddress
+    PhoneNumber
+}
+
+class Company{
+    Name
+}
+
+class Filial{
+    Name
+}
+
+class Address{
+    AddressLine1,
+    AddressLine2,
+    PostCode,
+    City,
+    Street,
+    Building,
+    Flat
+}
+
+class Country{
+    Name
+}
+
+class TradeUnion{
+    Name
+    FoundationDate
+    ReadinessToStrike: ReadinessToStrikeTypes
+}
+
+class Strike{
+    Theme
+    DateFrom
+    DateTo
+}
+
+class WorkerInTradeUnion{
+    Role
+}
+
+class Employment{
+    Post
+}
+
+class CompanyHasAddress{
+    CompanyAddressType
+}
+
+class TradeUnionOnStrike{
+    DateFrom
+    DateTo
+}
+
+Worker }o-r-o{ Company : works for
+
+(Worker, Company) .. Employment
+
+Worker }o-u-o{ Filial: works in
+
+Company ||-u-o{ Filial: has
+
+Worker }o-d-o{ TradeUnion: takes part in
+
+(Worker, TradeUnion) .. WorkerInTradeUnion
+
+Company |o-r-o{ Address
+
+(Company, Address) .. CompanyHasAddress
+
+Filial |o-r-o{ Address
+
+Country |o-l-o{ Address
+
+TradeUnion }o-r-o{ Strike: takes part in
+
+(TradeUnion, Strike) .. TradeUnionOnStrike
+
+TradeUnionOnStrike |o-u-o{ Address
+
+hide methods
+hide circle
+
+@enduml

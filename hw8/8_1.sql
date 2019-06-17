@@ -29,3 +29,10 @@ PIVOT (count(s.InvoiceID)
 		[Gasport, NY],
 		[Jessie, ND])) as PVT
 order by InvoiceMonth
+
+SELECT dateadd(day, -day(i.InvoiceDate)+1, i.InvoiceDate) as InvoiceMonth,
+		   substring(c.CustomerName, charindex('(', c.CustomerName) + 1, charindex(')', c.CustomerName) - charindex('(', c.CustomerName) - 1) as CustomerName,
+		   i.InvoiceID
+	FROM Sales.Customers AS c
+	JOIN Sales.Invoices as i ON c.CustomerID = i.CustomerID
+	where c.CustomerID >= 2 and c.CustomerID <= 6

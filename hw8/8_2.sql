@@ -1,5 +1,7 @@
 use WideWorldImporters;
 
+set statistics time on;
+
 select CustomerName,
 	   DeliveryAddressLine1 as addr
 from Sales.Customers
