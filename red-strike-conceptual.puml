@@ -13,21 +13,21 @@ class Company{
     Name
 }
 
-class Filial{
-    Name
-}
-
 class Address{
-    AddressLine1,
-    AddressLine2,
-    PostCode,
-    City,
-    Street,
-    Building,
+    AddressLine1
+    AddressLine2
+    PostCode
+    City
+    Street
+    Building
     Flat
 }
 
 class Country{
+    Name
+}
+
+class City{
     Name
 }
 
@@ -64,27 +64,25 @@ Worker }o-r-o{ Company : works for
 
 (Worker, Company) .. Employment
 
-Worker }o-u-o{ Filial: works in
-
-Company ||-u-o{ Filial: has
-
 Worker }o-d-o{ TradeUnion: takes part in
 
 (Worker, TradeUnion) .. WorkerInTradeUnion
 
-Company |o-r-o{ Address
+Company |o-r-o{ Address: has
 
 (Company, Address) .. CompanyHasAddress
 
-Filial |o-r-o{ Address
-
 Country |o-l-o{ Address
+
+City |o-u-o{ Address
+
+Country ||-d-o{ City
 
 TradeUnion }o-r-o{ Strike: takes part in
 
 (TradeUnion, Strike) .. TradeUnionOnStrike
 
-TradeUnionOnStrike |o-u-o{ Address
+TradeUnionOnStrike |o-u-o{ Address: takes place in
 
 hide methods
 hide circle
